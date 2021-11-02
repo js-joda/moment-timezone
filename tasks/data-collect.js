@@ -47,7 +47,7 @@ module.exports = function (grunt) {
 				offsets.push(+utc.diff(local, 'minutes', true).toFixed(4));
 				untils.push(null);
 				abbrs.push(localParts[6]);
-				isdst.push(localParts[7]); //TODO: is this correct??
+				// isdst.push(localParts[7]); //TODO: is this correct?? not really :) (see INTERVAL FORMAT in zdump(8)??
 			}
 
 			if (meta.zones[name]) {
