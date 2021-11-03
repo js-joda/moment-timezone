@@ -95,6 +95,17 @@
 		return out.join(' ');
 	}
 
+	function packIsDst(dst) {
+		var out = [],
+			i;
+
+		for (i = 0; i < dst.length; i++) {
+			out[i] = dst[i];
+		}
+
+		return out.join('');
+	}
+
 	function packAbbrsAndOffsets(source) {
 		var index = 0,
 			abbrs = [],
@@ -141,9 +152,11 @@
 		if (!source.abbrs)   { throw new Error("Missing abbrs"); }
 		if (!source.untils)  { throw new Error("Missing untils"); }
 		if (!source.offsets) { throw new Error("Missing offsets"); }
+		if (!source.isdst) { throw new Error("Missing isdst info"); }
 		if (
 			source.offsets.length !== source.untils.length ||
-			source.offsets.length !== source.abbrs.length
+			source.offsets.length !== source.abbrs.length ||
+			source.offsets.length !== source.isdst.length
 		) {
 			throw new Error("Mismatched array lengths");
 		}
@@ -155,7 +168,8 @@
 			source.name, // 0 - timezone name
 			packAbbrsAndOffsets(source), // 1 - abbrs, 2 - offsets, 3 - indices
 			packUntils(source.untils), // 4 - untils
-			packPopulation(source.population) // 5 - population
+			packPopulation(source.population), // 5 - population
+			packIsDst(source.isdst) // 6 - isdst
 		].join('|');
 	}
 
